@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Beta | ChatBot</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="chat-page">
+
+<header class="topbar">
+    <div class="logo-area">
+        <div class="logo">ChatBot</div>
+        <span class="beta-badge">Beta</span>
+    </div>
+
+    <nav class="nav-links">
+        <a href="#">Início</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+    </nav>
+
+    <div class="user-area">
+        <span class="welcome-user">
+            Olá, <strong th:text="${userName}">Usuário</strong>
+        </span>
+
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">Sair</button>
+        </form>
+    </div>
+</header>
+
+<main class="main-layout">
+
+    <aside class="sidebar">
+        <h2>Perguntas sugeridas</h2>
+
+        <div class="suggestion-list" id="suggestions">
+            <button type="button">O que você pode fazer?</button>
+            <button type="button">Como criar um site?</button>
+            <button type="button">Explique IA em 5 linhas</button>
+            <button type="button">Qual a diferença entre IA e ML?</button>
+            <button type="button">Como funciona o aprendizado de máquina?</button>
+            <button type="button">O que é rede neural?</button>
+            <button type="button">O que é processamento de linguagem natural?</button>
+            <button type="button">Quais são os tipos de IA?</button>
+            <button type="button">Como treinar um modelo de IA?</button>
+            <button type="button">Quais linguagens servem para IA?</button>
+            <button type="button">Como a IA pode ajudar empresas?</button>
+            <button type="button">IA pode substituir humanos?</button>
+            <button type="button">Como usar IA para segurança cibernética?</button>
+            <button type="button">O que é ChatGPT?</button>
+            <button type="button">Diferença entre IA fraca e forte?</button>
+            <button type="button">O que é aprendizado supervisionado?</button>
+            <button type="button">O que é aprendizado não supervisionado?</button>
+            <button type="button">O que é deep learning?</button>
+            <button type="button">Como funciona o reconhecimento de imagem?</button>
+            <button type="button">O que é visão computacional?</button>
+        </div>
+    </aside>
+
+    <section class="chat-section">
+        <div class="chat-header">
+            <div>
+                <h1>Seu assistente virtual</h1>
+                <p>Faça perguntas e explore ideias em tempo real.</p>
+            </div>
+        </div>
+
+        <div class="chat-box">
+            <div class="messages" id="messages">
+                <div class="message bot">
+                    Olá! Sou a Aisha. Como posso te ajudar hoje?
+                </div>
+            </div>
+
+            <p id="chat-status" class="chat-status" aria-live="polite"></p>
+
+            <div class="input-area">
+                <input id="message-input" type="text" placeholder="Envie uma mensagem..." maxlength="1000" />
+                <button id="send-btn" type="button" class="send-btn" aria-label="Enviar mensagem">➤</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script th:src="@{/js/chat.js}"></script>
+</body>
+</html>

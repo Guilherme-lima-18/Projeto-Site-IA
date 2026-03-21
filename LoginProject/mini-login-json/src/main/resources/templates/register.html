@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Criar conta</h1>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+        <form th:action="@{/register}" th:object="${registerRequest}" method="post">
+            <label>Nome</label>
+            <input type="text" th:field="*{name}" placeholder="Seu nome">
+            <small class="error" th:errors="*{name}"></small>
+
+            <label>Email</label>
+            <input type="email" th:field="*{email}" placeholder="seuemail@email.com">
+            <small class="error" th:errors="*{email}"></small>
+
+            <label>Senha</label>
+            <input type="password" th:field="*{password}" placeholder="Mínimo 6 caracteres">
+            <small class="error" th:errors="*{password}"></small>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <p class="link-text">
+            Já tem conta? <a th:href="@{/login}">Fazer login</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

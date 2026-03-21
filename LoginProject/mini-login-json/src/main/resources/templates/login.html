@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Entrar</h1>
+
+        <p th:if="${param.success}" class="success">
+            Cadastro realizado com sucesso. Agora faça login.
+        </p>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+        <form th:action="@{/login}" th:object="${loginRequest}" method="post">
+            <label>Email</label>
+            <input type="email" th:field="*{email}" placeholder="seuemail@email.com">
+
+            <label>Senha</label>
+            <input type="password" th:field="*{password}" placeholder="Sua senha">
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p class="link-text">
+            Não tem conta? <a th:href="@{/register}">Cadastrar</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
