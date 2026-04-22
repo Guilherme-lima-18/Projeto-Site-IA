@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.env
+memory.json
+__pycache__/
+*.pyc
