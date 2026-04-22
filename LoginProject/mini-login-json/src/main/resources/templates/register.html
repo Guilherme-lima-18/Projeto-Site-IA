@@ -2,36 +2,51 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aisha — Criar conta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<div class="container">
-    <div class="card">
-        <h1>Criar conta</h1>
+<body class="auth-page">
 
-        <p th:if="${error}" class="error" th:text="${error}"></p>
+<div class="auth-card">
 
-        <form th:action="@{/register}" th:object="${registerRequest}" method="post">
-            <label>Nome</label>
-            <input type="text" th:field="*{name}" placeholder="Seu nome">
-            <small class="error" th:errors="*{name}"></small>
-
-            <label>Email</label>
-            <input type="email" th:field="*{email}" placeholder="seuemail@email.com">
-            <small class="error" th:errors="*{email}"></small>
-
-            <label>Senha</label>
-            <input type="password" th:field="*{password}" placeholder="Mínimo 6 caracteres">
-            <small class="error" th:errors="*{password}"></small>
-
-            <button type="submit">Cadastrar</button>
-        </form>
-
-        <p class="link-text">
-            Já tem conta? <a th:href="@{/login}">Fazer login</a>
-        </p>
+    <div class="auth-brand">
+        <div class="auth-brand-logo">✦</div>
+        <span class="auth-brand-name">Aisha</span>
     </div>
+
+    <h1>Criar conta</h1>
+    <p class="auth-subtitle">Preencha os dados abaixo para começar</p>
+
+    <p th:if="${error}" class="error-msg" th:text="${error}" style="text-align:center; margin-bottom:16px;"></p>
+
+    <form th:action="@{/register}" th:object="${registerRequest}" method="post">
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Seu nome completo" autofocus>
+            <small class="error-msg" th:errors="*{name}"></small>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="seuemail@email.com">
+            <small class="error-msg" th:errors="*{email}"></small>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Mínimo 6 caracteres">
+            <small class="error-msg" th:errors="*{password}"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar conta</button>
+    </form>
+
+    <p class="auth-footer">
+        Já tem conta? <a th:href="@{/login}">Fazer login</a>
+    </p>
+
 </div>
+
 </body>
 </html>

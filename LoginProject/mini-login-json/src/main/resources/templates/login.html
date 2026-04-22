@@ -2,34 +2,47 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aisha — Entrar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<div class="container">
-    <div class="card">
-        <h1>Entrar</h1>
+<body class="auth-page">
 
-        <p th:if="${param.success}" class="success">
-            Cadastro realizado com sucesso. Agora faça login.
-        </p>
+<div class="auth-card">
 
-        <p th:if="${error}" class="error" th:text="${error}"></p>
-
-        <form th:action="@{/login}" th:object="${loginRequest}" method="post">
-            <label>Email</label>
-            <input type="email" th:field="*{email}" placeholder="seuemail@email.com">
-
-            <label>Senha</label>
-            <input type="password" th:field="*{password}" placeholder="Sua senha">
-
-            <button type="submit">Entrar</button>
-        </form>
-
-        <p class="link-text">
-            Não tem conta? <a th:href="@{/register}">Cadastrar</a>
-        </p>
+    <div class="auth-brand">
+        <div class="auth-brand-logo">✦</div>
+        <span class="auth-brand-name">Aisha</span>
     </div>
+
+    <h1>Bem-vindo de volta</h1>
+    <p class="auth-subtitle">Entre com sua conta para continuar</p>
+
+    <p th:if="${param.success}" class="success-msg">
+        ✓ Cadastro realizado com sucesso. Agora faça login.
+    </p>
+    <p th:if="${error}" class="error-msg" th:text="${error}" style="text-align:center; margin-bottom:16px;"></p>
+
+    <form th:action="@{/login}" th:object="${loginRequest}" method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="seuemail@email.com" autofocus>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Sua senha">
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+
+    <p class="auth-footer">
+        Não tem conta? <a th:href="@{/register}">Criar conta grátis</a>
+    </p>
+
 </div>
+
 </body>
 </html>

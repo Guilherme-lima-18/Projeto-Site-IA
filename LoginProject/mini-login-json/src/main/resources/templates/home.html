@@ -3,94 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Beta | ChatBot</title>
-
+    <title>Aisha — Chat</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body class="chat-page">
+<body>
 
-<header class="topbar">
-    <div class="logo-area">
-        <div class="logo">ChatBot</div>
-        <span class="beta-badge">Beta</span>
-    </div>
+<div class="sidebar-overlay" id="overlay"></div>
 
-    <nav class="nav-links">
-        <a href="#">Início</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
-    </nav>
+<div class="app-layout">
 
-    <div class="user-area">
-        <span class="welcome-user">
-            Olá, <strong th:text="${userName}">Usuário</strong>
-        </span>
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar">
 
-        <form th:action="@{/logout}" method="post" class="logout-form">
-            <button type="submit" class="logout-btn">Sair</button>
-        </form>
-    </div>
-</header>
-
-<main class="main-layout">
-
-    <aside class="sidebar">
-        <h2>Perguntas sugeridas</h2>
-
-        <div class="suggestion-list" id="suggestions">
-            <button type="button">O que você pode fazer?</button>
-            <button type="button">Como criar um site?</button>
-            <button type="button">Explique IA em 5 linhas</button>
-            <button type="button">Qual a diferença entre IA e ML?</button>
-            <button type="button">Como funciona o aprendizado de máquina?</button>
-            <button type="button">O que é rede neural?</button>
-            <button type="button">O que é processamento de linguagem natural?</button>
-            <button type="button">Quais são os tipos de IA?</button>
-            <button type="button">Como treinar um modelo de IA?</button>
-            <button type="button">Quais linguagens servem para IA?</button>
-            <button type="button">Como a IA pode ajudar empresas?</button>
-            <button type="button">IA pode substituir humanos?</button>
-            <button type="button">Como usar IA para segurança cibernética?</button>
-            <button type="button">O que é ChatGPT?</button>
-            <button type="button">Diferença entre IA fraca e forte?</button>
-            <button type="button">O que é aprendizado supervisionado?</button>
-            <button type="button">O que é aprendizado não supervisionado?</button>
-            <button type="button">O que é deep learning?</button>
-            <button type="button">Como funciona o reconhecimento de imagem?</button>
-            <button type="button">O que é visão computacional?</button>
+        <div class="sidebar-header">
+            <div class="brand-logo">✦</div>
+            <span class="brand-name">Aisha</span>
+            <span class="brand-badge">Beta</span>
         </div>
+
+        <nav class="sidebar-nav">
+            <a href="/home"    class="nav-item active"><span class="nav-icon">💬</span> Chat</a>
+            <a href="/sobre"   class="nav-item"><span class="nav-icon">📖</span> Sobre</a>
+            <a href="/contato" class="nav-item"><span class="nav-icon">✉️</span> Contato</a>
+        </nav>
+
+        <a href="#" class="btn-new-chat" id="btn-new-chat">
+            ＋ Novo chat
+        </a>
+
+        <p class="sidebar-section-title">Sugestões</p>
+
+        <div class="suggestions-list" id="suggestions">
+            <button class="suggestion-item">O que você pode fazer?</button>
+            <button class="suggestion-item">Como criar um site?</button>
+            <button class="suggestion-item">Explique IA em 5 linhas</button>
+            <button class="suggestion-item">Qual a diferença entre IA e ML?</button>
+            <button class="suggestion-item">Como funciona o aprendizado de máquina?</button>
+            <button class="suggestion-item">O que é rede neural?</button>
+            <button class="suggestion-item">O que é processamento de linguagem natural?</button>
+            <button class="suggestion-item">Quais são os tipos de IA?</button>
+            <button class="suggestion-item">Como treinar um modelo de IA?</button>
+            <button class="suggestion-item">Quais linguagens servem para IA?</button>
+            <button class="suggestion-item">Como a IA pode ajudar empresas?</button>
+            <button class="suggestion-item">IA pode substituir humanos?</button>
+            <button class="suggestion-item">O que é ChatGPT?</button>
+            <button class="suggestion-item">O que é deep learning?</button>
+            <button class="suggestion-item">O que é visão computacional?</button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-avatar" id="user-avatar-initial">U</div>
+            <div class="user-info">
+                <div class="user-name" th:text="${userName}">Usuário</div>
+                <div class="user-role">Membro</div>
+            </div>
+            <form th:action="@{/logout}" method="post" style="margin:0">
+                <button type="submit" class="btn btn-danger" title="Sair">⏻</button>
+            </form>
+        </div>
+
     </aside>
 
-    <section class="chat-section">
-        <div class="chat-header">
-            <div>
-                <h1>Seu assistente virtual</h1>
-                <p>Faça perguntas e explore ideias em tempo real.</p>
-            </div>
-        </div>
+    <!-- ── MAIN CONTENT ── -->
+    <div class="main-content">
 
-        <div class="chat-box">
-            <div class="messages" id="messages">
-                <div class="message bot">
-                    Olá! Sou a Aisha. Como posso te ajudar hoje?
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <span class="topbar-title">Aisha — seu assistente virtual</span>
+            </div>
+            <div class="topbar-right">
+                <span style="font-size:13px; color:var(--text-muted)">
+                    Olá, <strong th:text="${userName}" style="color:var(--text)">Usuário</strong>
+                </span>
+                <form th:action="@{/logout}" method="post" style="margin:0">
+                    <button type="submit" class="btn btn-ghost">Sair</button>
+                </form>
+            </div>
+        </header>
+
+        <div class="chat-body">
+
+            <div class="messages-area" id="messages">
+                <div class="chat-welcome" id="chat-welcome">
+                    <div class="chat-welcome-icon">✦</div>
+                    <h2>Olá, <span th:text="${userName}">Usuário</span>!</h2>
+                    <p>Sou a Aisha. Como posso te ajudar hoje?</p>
+                </div>
+
+                <div class="message bot" id="first-message">
+                    <div class="msg-avatar">✦</div>
+                    <div class="msg-bubble">Olá! Sou a Aisha. Pode me perguntar qualquer coisa — estou aqui para ajudar!</div>
                 </div>
             </div>
 
-            <p id="chat-status" class="chat-status" aria-live="polite"></p>
-
-            <div class="input-area">
-                <input id="message-input" type="text" placeholder="Envie uma mensagem..." maxlength="1000" />
-                <button id="send-btn" type="button" class="send-btn" aria-label="Enviar mensagem">➤</button>
+            <div class="chat-status-bar">
+                <p id="chat-status" aria-live="polite"></p>
             </div>
-        </div>
-    </section>
 
-</main>
+            <div class="input-wrapper">
+                <div class="input-row">
+                    <input
+                        id="message-input"
+                        type="text"
+                        placeholder="Envie uma mensagem para a Aisha..."
+                        maxlength="1000"
+                        autocomplete="off"
+                    />
+                    <button id="send-btn" aria-label="Enviar">➤</button>
+                </div>
+                <p class="input-hint">Pressione Enter para enviar · A Aisha pode cometer erros</p>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/app.js}"></script>
 </body>
 </html>

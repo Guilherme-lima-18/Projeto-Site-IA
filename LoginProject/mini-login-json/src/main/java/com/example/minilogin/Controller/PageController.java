@@ -23,7 +23,6 @@ public class PageController {
         if (session.getAttribute("loggedUser") != null) {
             return "redirect:/home";
         }
-
         model.addAttribute("loginRequest", new LoginRequest());
         return "login";
     }
@@ -33,7 +32,6 @@ public class PageController {
         if (session.getAttribute("loggedUser") != null) {
             return "redirect:/home";
         }
-
         model.addAttribute("registerRequest", new RegisterRequest());
         return "register";
     }
@@ -41,12 +39,24 @@ public class PageController {
     @GetMapping("/home")
     public String homePage(HttpSession session, Model model) {
         Object user = session.getAttribute("loggedUser");
-
-        if (user == null) {
-            return "redirect:/login";
-        }
-
+        if (user == null) return "redirect:/login";
         model.addAttribute("userName", user);
         return "home";
+    }
+
+    @GetMapping("/sobre")
+    public String sobrePage(HttpSession session, Model model) {
+        Object user = session.getAttribute("loggedUser");
+        if (user == null) return "redirect:/login";
+        model.addAttribute("userName", user);
+        return "sobre";
+    }
+
+    @GetMapping("/contato")
+    public String contatoPage(HttpSession session, Model model) {
+        Object user = session.getAttribute("loggedUser");
+        if (user == null) return "redirect:/login";
+        model.addAttribute("userName", user);
+        return "contato";
     }
 }
