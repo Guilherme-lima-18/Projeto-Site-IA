@@ -11,7 +11,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD}"]
+      # SELECT 1 em vez de 'ping': o ping responde OK ate com senha errada
+      test: ["CMD", "mysql", "-uroot", "-p${DB_PASSWORD}", "-e", "SELECT 1"]
       interval: 10s
       timeout: 5s
       retries: 10
