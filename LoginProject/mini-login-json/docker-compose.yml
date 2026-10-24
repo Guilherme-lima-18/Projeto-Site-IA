@@ -1,0 +1,58 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: aisha-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-aisha_memory}
+    ports:
+      - "3307:3306"          # 3307 no host p/ nao bater com o MySQL local
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ai:
+    build:
+      context: .
+      dockerfile: Dockerfile.ai
+    image: projeto-site-ia/aisha-ai:latest
+    container_name: aisha-ai
+    restart: unless-stopped
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-aisha_memory}
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: projeto-site-ia/mini-login:latest
+    container_name: mini-login
+    restart: unless-stopped
+    environment:
+      AI_SERVICE_URL: http://ai:5000
+      APP_DATA_FILE: /app/data/users.txt
+    ports:
+      - "8080:8080"
+    volumes:
+      - app-data:/app/data
+    depends_on:
+      - ai
+
+volumes:
+  mysql-data:
+  app-data:

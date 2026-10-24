@@ -1,0 +1,15 @@
+target/
+.git/
+.gitignore
+.idea/
+.vscode/
+*.iml
+__pycache__/
+*.pyc
+.env
+memory.json
+users.txt
+*.zip
+Dockerfile*
+docker-compose*.yml
+.dockerignore

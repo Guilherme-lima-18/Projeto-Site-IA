@@ -1,0 +1,22 @@
+# ============================================================
+#  Servico de IA (Aisha) - Flask + OpenAI + MySQL
+# ============================================================
+FROM python:3.12-slim
+WORKDIR /app
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+COPY requirements-ai.txt .
+RUN pip install --no-cache-dir -r requirements-ai.txt
+
+# app.py vive dentro da arvore do projeto Java
+COPY src/main/java/com/example/minilogin/app.py .
+
+RUN useradd -m aisha
+USER aisha
+
+EXPOSE 5000
+
+# init_db() roda no __main__, por isso chamamos o app.py direto
+CMD ["python", "app.py"]
